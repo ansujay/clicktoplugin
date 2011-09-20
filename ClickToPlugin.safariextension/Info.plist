@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Marc Hoyois</string>
 	<key>Builder Version</key>
-	<string>7534.48.3</string>
+	<string>6534.50</string>
 	<key>CFBundleDisplayName</key>
 	<string>ClickToPlugin</string>
 	<key>CFBundleIdentifier</key>
@@ -20,6 +20,25 @@
 	<dict>
 		<key>Global Page</key>
 		<string>global.html</string>
+		<key>Toolbar Items</key>
+		<array>
+			<dict>
+				<key>Command</key>
+				<string>domainEnableDisable</string>
+				<key>Identifier</key>
+				<string>ClickToPluginToolbarButton</string>
+				<key>Image</key>
+				<string>ClickToPlugin-blocked.png</string>
+				<key>Include By Default</key>
+				<false/>
+				<key>Label</key>
+				<string>Click to Plugin</string>
+				<key>Palette Label</key>
+				<string>Click to Plugin</string>
+				<key>Tool Tip</key>
+				<string>Click to Plugin: Enable/Disable loading of plugin content</string>
+			</dict>
+		</array>
 	</dict>
 	<key>Content</key>
 	<dict>

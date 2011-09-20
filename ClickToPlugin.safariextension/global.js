@@ -218,6 +218,13 @@ function isAllowed(plugin) {
 	return false;
 }
 
+// TOOLBAR BUTTON
+function validateCommand(event) {
+	if (event.command === "domainEnableDisable") {
+		updateToolbarButtonState(event.target, event.target.browserWindow.activeTab.url);
+	}
+}
+
 // CONTEXT MENU
 function handleContextMenu(event) {
 	var u = event.userInfo;
@@ -281,9 +288,35 @@ function doCommand(event) {
 		if(!tab.url) tab.url = safari.extension.baseURI + "settings.html";
 		else tab.page.dispatchMessage("showSettings", "");
 		break;
+	case "domainEnableDisable":
+		var domain = extractDomain(event.target.browserWindow.activeTab.url);
+		if (!matchList(settings.locationsWhitelist, domain)) {
+			handleWhitelisting("locationsWhitelist", domain);
+		}
+		else {
+			var index = settings.locationsWhitelist.indexOf(domain);
+			settings.locationsWhitelist = removeFromList(settings.locationsWhitelist, index);
+		}
+		updateToolbarButtonState(event.target, event.target.browserWindow.activeTab.url);
+		reloadTab(safari.application.activeBrowserWindow.activeTab);
+		break;
 	default:
 		tab.page.dispatchMessage(event.command, event.userInfo);
 		break;
+	}
+}
+
+function updateToolbarButtonState(button, url)
+{
+	button.disabled = !url;
+	if (!url) {
+		button.image = safari.extension.baseURI + "ClickToPlugin-blocked.png";
+	}
+	else if (!matchList(settings.locationsWhitelist, extractDomain(url))) {
+		button.image = safari.extension.baseURI + "ClickToPlugin-blocked.png";
+	}
+	else {
+		button.image = safari.extension.baseURI + "ClickToPlugin.png";
 	}
 }
 
@@ -306,6 +339,7 @@ function switchOn() {
 
 function handleWhitelisting(list, newWLString) {
 	settings[list] = settings[list].concat(newWLString); // push doesn't work
+
 	// load targeted content at once
 	switch(list) {
 	case "locationsWhitelist":
@@ -365,6 +399,7 @@ function kill(data, tab) {
 
 // EVENT LISTENERS
 safari.application.addEventListener("message", respondToMessage, false);
+safari.application.addEventListener("validate", validateCommand, false);
 safari.application.addEventListener("contextmenu", handleContextMenu, false);
 safari.application.addEventListener("command", doCommand, false);
 

@@ -56,6 +56,16 @@ function matchList(list, string) {
 	return false;
 }
 
+function removeFromList(list, index) {
+	var newList = [];
+	for (var i = 0; i < list.length; i++) {
+		if (i != index)
+			newList.concat(list[i]);
+	}
+	alert(newList.length);
+	return newList;
+}
+
 function getMIMEType(resourceURL, handleMIMEType) {
 	var xhr = new XMLHttpRequest();
 	xhr.open('HEAD', resourceURL, true);

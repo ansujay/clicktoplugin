@@ -62,7 +62,6 @@ function removeFromList(list, index) {
 		if (i != index)
 			newList.concat(list[i]);
 	}
-	alert(newList.length);
 	return newList;
 }
 

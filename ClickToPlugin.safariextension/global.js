@@ -295,7 +295,7 @@ function doCommand(event) {
 		}
 		else {
 			var index = settings.locationsWhitelist.indexOf(domain);
-			settings.locationsWhitelist = removeFromList(settings.locationsWhitelist, index);
+			settings.locationsWhitelist = removeFromArray(settings.locationsWhitelist, index);
 		}
 		updateToolbarButtonState(event.target, event.target.browserWindow.activeTab.url);
 		reloadTab(safari.application.activeBrowserWindow.activeTab);

@@ -56,13 +56,13 @@ function matchList(list, string) {
 	return false;
 }
 
-function removeFromList(list, index) {
-	var newList = [];
-	for (var i = 0; i < list.length; i++) {
+function removeFromArray(array, index) {
+	var newArray = [];
+	for (var i = 0; i < array.length; i++) {
 		if (i != index)
-			newList.concat(list[i]);
+			newArray.push(array[i]);
 	}
-	return newList;
+	return newArray;
 }
 
 function getMIMEType(resourceURL, handleMIMEType) {
